@@ -16,14 +16,14 @@ type Heap []int
 func (Heap) Generate(rand *rand.Rand, size int) reflect.Value {
 	var h Heap
 	for i := 0; i < size; i++ {
-		switch rand.Intn(3) {
-		case 0:
+		switch rand.Intn(4) {
+		case 0, 1:
 			h.Push(rand.Int())
-		case 1:
+		case 2:
 			if len(h) > 0 {
 				h.Pop()
 			}
-		case 2:
+		case 3:
 			if len(h) > 0 {
 				h.Remove(rand.Intn(len(h)))
 			}
