@@ -5,6 +5,7 @@ Tags: testing
 Evan Shaw
 Iron.io
 edsrzf@gmail.com
+http://github.com/edsrzf/quick
 
 * Introduction
 
@@ -63,7 +64,7 @@ Note that the receiver is unused.
 
 * Shrinking
 
-Finding a failure is good, but since test cases are complicated, finding the cause takes time and effort
+Finding a failure is good, but since test cases are complicated, finding the cause takes time and effort.
 
 Haskell and Erlang QuickCheck have an additional feature that aids debugging: test case shrinking.
 
@@ -80,6 +81,8 @@ Remember our ugly test case? Let's shrink it.
 Shrinker interface
 
 .code shrinker.go /START1 OMIT/,/END1 OMIT/
+
+When a check fails, `Shrink` is called repeatedly on the failing value, and the property is checked against the shrunken values until the property holds.
 
 My package also contains functions for shrinking built-ins.
 
