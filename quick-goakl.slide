@@ -1,0 +1,115 @@
+Quick testing with testing/quick
+20 Aug 2014
+Tags: testing
+
+Evan Shaw
+Iron.io
+edsrzf@gmail.com
+http://github.com/edsrzf/quick
+
+* Introduction
+
+testing/quick might be the most underused core Go package.
+
+Anyone testing their Go code should consider using it, but hardly anyone talks about it.
+
+What is it? How to use it? When to use it?
+
+* What is it?
+
+testing/quick generates random test cases for functions using reflection.
+
+The main functions are `quick.Check` and `quick.CheckEqual`.
+
+It's inspired by QuickCheck for Haskell and, later, QuviQ QuickCheck for Erlang.
+
+The original paper:
+John Hughes, "QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs"
+
+* Testing Properties
+
+.play reverse0.go /START OMIT/,/END OMIT/
+
+* A Trap
+
+.play reverse1.go /START OMIT/,/END OMIT/
+
+Tests pass, but we basically reimplemented reverse and probably repeated its mistakes.
+
+This can work well under other circumstances, but not here.
+
+* Failure
+
+.play reversefail.go /START OMIT/,/END OMIT/
+
+Oops, we don't handle Unicode strings.
+
+Also, that test case is pretty ugly. More on that later.
+
+* Generators
+
+Some types need custom random generation logic.
+
+.code generator.go /START OMIT/,/END OMIT/
+
+* Implementing Generator
+
+.code heap.go /START1 OMIT/,/END1 OMIT/
+
+Note that the receiver is unused.
+
+* Testing a Heap
+
+.play heap.go /START2 OMIT/,/END2 OMIT/
+
+* Shrinking
+
+Finding a failure is good, but since test cases are complicated, finding the cause takes time and effort.
+
+Haskell and Erlang QuickCheck have an additional feature that aids debugging: test case shrinking.
+
+I'm implementing shrinking in testing/quick.
+
+* Shrinking Example
+
+Remember our ugly test case? Let's shrink it.
+
+.play reverseshrink.go /START OMIT/,/END OMIT/
+
+* How Does It Work?
+
+Shrinker interface
+
+.code shrinker.go /START1 OMIT/,/END1 OMIT/
+
+When a check fails, `Shrink` is called repeatedly on the failing value, and the property is checked against the shrunken values until the property holds.
+
+My package also contains functions for shrinking built-ins.
+
+* Example Shrinker Implementation
+
+.code shrinker.go /START2 OMIT/,/END2 OMIT/
+
+* A Helper
+
+More complex types can end up with lots of repeated selects, so I expose a helper:
+
+.code shrinker.go /START3 OMIT/,/END3 OMIT/
+
+* IronMQ
+
+IronMQ is Iron.io's message queue as a service.
+
+It contains a large backend interface with a few different implementations
+
+How can we test it with testing/quick?
+
+* Simple Backend
+
+The answer: make a backend that's as simple and obviously correct as possible.
+
+- Run the same operations on the simple backend and the real backend
+- Compare the results
+- Find bugs
+
+* Questions?
