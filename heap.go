@@ -31,6 +31,7 @@ func (Heap) Generate(rand *rand.Rand, size int) reflect.Value {
 	}
 	return reflect.ValueOf(h)
 }
+
 // END1 OMIT
 
 // START2 OMIT
@@ -53,6 +54,7 @@ func TestHeap(t *testing.T) {
 		t.Error(err)
 	}
 }
+
 // END2 OMIT
 
 func (h *Heap) Push(x int) {

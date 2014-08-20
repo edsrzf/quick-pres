@@ -16,12 +16,13 @@ func TestValidUTF8(t *testing.T) {
 		t.Error(err)
 	}
 }
+
 // END OMIT
 
 func reverse(s string) string {
 	b := make([]byte, len(s))
 	for i := 0; i < len(s); i++ {
-		b[len(s) - i - 1] = s[i]
+		b[len(s)-i-1] = s[i]
 	}
 	return string(b)
 }

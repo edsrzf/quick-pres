@@ -8,7 +8,7 @@ import (
 // START OMIT
 func reverseCompare(x, y string) bool {
 	for i := 0; i < len(x); i++ {
-		if x[len(x) - i - 1] != y[i] {
+		if x[len(x)-i-1] != y[i] {
 			return false
 		}
 	}
@@ -23,12 +23,13 @@ func TestReverseCompare(t *testing.T) {
 		t.Error(err)
 	}
 }
+
 // END OMIT
 
 func reverse(s string) string {
 	b := make([]byte, len(s))
 	for i := 0; i < len(s); i++ {
-		b[len(s) - i - 1] = s[i]
+		b[len(s)-i-1] = s[i]
 	}
 	return string(b)
 }

@@ -11,6 +11,7 @@ type Generator interface {
 	// method using the size as a size hint.
 	Generate(rand *rand.Rand, size int) reflect.Value
 }
+
 // END OMIT
 
 func main() {}
