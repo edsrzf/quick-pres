@@ -30,6 +30,22 @@ John Hughes, "QuickCheck: A Lightweight Tool for Random Testing of Haskell Progr
 
 .play reverse0.go /START OMIT/,/END OMIT/
 
+* Tweaking parameters
+
+You can change the number of test cases run and affect how values are generated.
+
+.code config.go /START OMIT/,/END OMIT/
+
+* Why is it useful?
+
+You don't have to write test cases.
+
+It can generate tests that you would never write yourself.
+
+It makes you think more carefully about the behavior of your code.
+
+That said, it's just another tool. Use the right tool for the job.
+
 * A Trap
 
 .play reverse1.go /START OMIT/,/END OMIT/
