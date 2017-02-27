@@ -1,0 +1,216 @@
+Intro to Go
+
+20 Feb 2017
+
+
+Evan Shaw
+Vend
+evan@vendhq.com
+
+* Go
+
+.image gopher.png
+
+- Fast
+- Simple
+- Safe
+- Concurrent
+
+* Hello, World!
+
+.play -edit hello.go
+
+- Dissect
+- A note on style
+- Look ma, no semicolons
+
+* Variables
+
+- Static typing: variables have types
+- Type comes after name
+- Initialized to zero value
+- Must be used
+- Blank identifier
+
+.play -edit variables.go
+
+* Functions
+
+- Can return multiple results
+- Returns can be named
+- Can omit types when two parameters in a row have the same type
+
+.play -edit functions.go
+
+* Basic Types
+
+- `bool`, `string`
+- Basic integer: `int`
+- Unsigned: `uint`
+- 8-, 16-, 32-, 64-bit sized versions: `uint16`, `int64`, etc.
+- `byte` is an alias for `uint8`
+- `rune` is an alias for `int32`
+- `float32`, `float64`
+- The usual operators are available, though there are no implicit conversions
+
+* Arrays and Slices
+
+- *Arrays* are declared like this: `var` `a` `[10]int`
+- Size must be constant; cannot be resized
+- *Slices* are views into arrays
+- Dynamically sized; much more common
+
+.play -edit slice.go
+
+* Maps
+
+- Maps are fast lookup structures (hash tables, internally)
+- Zero value: `nil`
+
+.play -edit map.go
+
+* Structs
+
+- Collection of fields
+- Use `type` to give them a name
+
+.play -edit struct.go
+
+* Pointers
+
+.image scream.gif
+
+* Pointers
+
+- No pointer arithmetic
+- No reason to use double (or triple, or...) pointers
+- Similar to references in PHP
+
+.play -edit pointers.go
+
+* Loops
+
+- One loop to rule them all: `for`
+- No parentheses, but braces required
+- Four different forms
+
+.play -edit for.go
+
+* If
+
+- Basically what you'd expect
+- *Only* accepts `bool`-typed expressions
+- Optional initialization statement
+
+.play -edit if.go
+
+* Anonymous Functions and Closures
+
+- Functions can be anonymous
+- They can close over variables
+
+.play -edit closures.go
+
+* Named Types and Methods
+
+- Any type can be named; not just structs
+- Can add methods to types
+- Receiver can be value or pointer
+
+.play -edit methods.go
+
+* Interfaces
+
+- Consists of a set of methods
+- Any type with those methods *implements* the interface
+
+.play -edit interfaces.go /START OMIT/,/END OMIT/
+
+* Empty Interface
+
+- No method set, so everything implements it
+- Because it has no methods, you can't actually do anything with it directly
+- Kinda like Java's Object
+
+.play -edit empty-interface.go
+
+* Type Assertions
+
+- But what use is an empty interface if we can't do anything with it?
+- Use type assertions to get the value back out again
+
+.play -edit type-assertions.go
+
+* Some Important Interfaces
+
+.play -edit important-interfaces.go /START OMIT/,/END OMIT/
+
+* Interface Guidelines
+
+- Return concrete types; accept interfaces
+- Don't define an interface unless you need it
+- An interface with a single method is equivalent to a function type
+
+.play -edit empty.go
+
+* Goroutines!
+
+- Lightweight concurrency
+- Prefix any call with "go" and it runs in a separate goroutine
+
+.play -edit goroutines.go
+
+* Channels
+
+- Used to communicate between goroutines
+- Send and receive values; data flows in the direction of the arrow
+
+.play -edit channels.go /START OMIT/,/END OMIT/
+
+* Workers
+
+- One producer goroutine; many worker goroutines
+
+.play -edit worker.go /START OMIT/,/END OMIT/
+
+* Consequences of Easy Concurrency
+
+- It's fine for functions to block; callbacks are rare
+- Functions are assumed to be reentrant unless stated otherwise
+- Types are assumed *not* to be safe for concurrent use unless stated otherwise
+
+* Data Races
+
+- Modifying things concurrently is a bad idea
+- In the worst case, it can lead to unsafety (memory corruption, etc.)
+
+.play -edit race.go /START OMIT/,/END OMIT/
+
+* Mutex
+
+- Sometimes it's easier to use locks than channels
+
+.play -edit mutex.go /START OMIT/,/END OMIT/
+
+* Waitgroups
+
+- Waitgroups make it easier to wait on goroutines
+
+.play -edit waitgroup.go /START OMIT/,/END OMIT/
+
+* select, Timeouts
+
+- Select blocks on multiple channel operations
+
+.play -edit select.go /START OMIT/,/END OMIT/
+
+* One-Time Initialization
+
+.play -edit once.go
+
+* Further Resources
+
+.link https://tour.golang.org/ Go Tour
+.link https://golang.org/doc/effective_go.html Effective Go
+.link https://golang.org/ref/spec Language Specification
+.link https://golang.org/pkg/ Package Documentation
