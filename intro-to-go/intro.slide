@@ -153,6 +153,12 @@ evan@vendhq.com
 
 .play -edit empty.go
 
+* Error-Handling
+
+- error interface
+
+.play -edit errors.go /START OMIT/,/END OMIT/
+
 * Goroutines!
 
 - Lightweight concurrency
